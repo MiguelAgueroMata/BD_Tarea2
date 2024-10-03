@@ -1,20 +1,20 @@
 import express, { Request, Response } from 'express';
 import sql from 'mssql';
-import dotenv from 'dotenv';
 
-dotenv.config(); // Cargar las variables de entorno desde .env
+
 
 // Configuración de la base de datos
 const dbConfig = {
-    user: process.env.DB_USER,
-    password: process.env.DB_PASSWORD,
-    server: process.env.DB_SERVER, // Servidor de Somee
-    database: process.env.DB_DATABASE,
+    user: process.env.DB_USER ?? '', // Fallback to an empty string if undefined
+    password: process.env.DB_PASSWORD ?? '',
+    server: process.env.DB_SERVER ?? '',
+    database: process.env.DB_DATABASE ?? '',
     options: {
-        encrypt: true, // Algunos servidores requieren la conexión encriptada
-        trustServerCertificate: true, // Solo si tu servidor lo requiere
+        encrypt: true, // Some servers require encryption
+        trustServerCertificate: true, // Change if your server needs it
     },
 };
+
 
 // Función para conectar a la base de datos
 async function connectToDatabase() {
